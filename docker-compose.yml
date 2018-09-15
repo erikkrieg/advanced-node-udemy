@@ -1,0 +1,43 @@
+version: '3'
+services:
+  client:
+    image: node:10
+    working_dir: /run
+    depends_on:
+      - server
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/run
+    command: npm start
+
+  server:
+    image: node:10
+    working_dir: /run
+    depends_on:
+      - mongo
+      - redis
+    ports:
+      - 5000:3000
+    volumes:
+      - ../AdvancedNodeStarter:/run
+    command: npm run server
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - data-volume:/data/db
+    expose:
+      - 27017
+    # Open ports so external integration test application running in docker network
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    
+  redis:
+    image: "redis:alpine"
+    expose:
+      - 6379
+
+volumes:
+  data-volume:

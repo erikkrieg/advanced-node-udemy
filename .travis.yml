@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "10"
+# Might need to get an OS with Docker Compose ready  
+dist: trusty
+services:
+  - mongodb
+  - redis-server
+  # should have docker and docker-compose?
+env:
+  - NODE_ENV=ci PORT=3000
+cache:
+  directories:
+    - node_modules
+    - client/node_modules
+install:
+  - npm install
+  - npm run build
+script:
+  # start server in a sub-shell and don't exit unexpectedly
+  - nohup npm run start &
+  # help ensure server is ready before tests are run
+  - sleep 3
+  - npm run test
