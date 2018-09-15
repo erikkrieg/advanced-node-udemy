@@ -6,5 +6,5 @@ module.exports = {
   // When running with dev, the tests occur outside the docker compose network
   // which requires a different URI than the application server uses.
   // While run in CI the correct URI is in the primary config file.
-  MONGO_URI: isDev ? 'mongodb://localhost:27017/blog_dev' : key.mongoURI,
+  MONGO_URI: isDev ? 'mongodb://localhost:27017/blog_dev' : keys.mongoURI,
 };
