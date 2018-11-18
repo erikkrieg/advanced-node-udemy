@@ -7,4 +7,6 @@ module.exports = {
   cookieKey: '123123123',
   // redisURI: 'redis://127.0.0.1:6379',
   redisURI: 'redis://redis:6379',
+  accessKeyId: process.env.ACCESS_KEY,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
 };
